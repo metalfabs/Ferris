@@ -2,7 +2,7 @@
 
 enum ferris_layers {
   _QWERTY,
-  _COLEMAKDH
+  _COLEMAKDH,
   _LOWER,
   _RAISE,
   _ADJUST
