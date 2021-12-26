@@ -2,6 +2,7 @@
 
 enum ferris_layers {
   _QWERTY,
+  _COLEMAK-DH
   _LOWER,
   _RAISE,
   _ADJUST
@@ -13,6 +14,8 @@ enum combos {
 };
 
 #define KC_ADJA LT(3,KC_A)
+
+/* Home row mods for QWERTY */
 #define KC_ALTS LALT_T(KC_S)
 #define KC_CTLD LCTL_T(KC_D)
 #define KC_SFTF LSFT_T(KC_F)
@@ -20,12 +23,24 @@ enum combos {
 #define KC_CTLK LCTL_T(KC_K)
 #define KC_AGRL RALT_T(KC_L)
 #define KC_GUIQ LGUI_T(KC_QUOT)
+
+/* Home row mods for Colemak-DH */
+#define KC_ALTR LALT_T(KC_R)
+#define KC_CTLS LCTL_T(KC_S)
+#define KC_SFTT LSFT_T(KC_T)
+#define KC_SFTN LSFT_T(KC_N)
+#define KC_CTLE LCTL_T(KC_E)
+#define KC_AGRI RALT_T(KC_I)
+#define KC_GUIO LGUI_T(KC_O)
+
+/* One-shot mods */
 #define OSM_ALT OSM(MOD_LALT)
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
 
-const uint16_t PROGMEM combtab[] = {KC_ESC, KC_SPC, COMBO_END};
-const uint16_t PROGMEM combdel[] = {KC_ENT, KC_BSPC, COMBO_END};
+const uint16_t PROGMEM combtab[] = {LT(1,KC_ESC), KC_SPC, COMBO_END};
+const uint16_t PROGMEM combdel[] = {KC_ENT, LT(2,KC_BSPC), COMBO_END};
+
 combo_t key_combos[COMBO_COUNT] = {
     [ESC_SPC_TAB]  = COMBO(combtab, KC_TAB),
     [ENT_BSPC_DEL] = COMBO(combdel, KC_DEL),
@@ -49,6 +64,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 		KC_Q,       KC_W,    KC_E,    KC_R, KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,
 		KC_ADJA, KC_ALTS, KC_CTLD, KC_SFTF, KC_G,    KC_H, KC_SFTJ, KC_CTLK, KC_AGRL, KC_GUIQ,
 		KC_Z,       KC_X,    KC_C,    KC_V, KC_B,    KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH,
+                            LT(1,KC_ESC), KC_SPC,    KC_ENT, LT(2,KC_BSPC)),
+
+	/* Colemak-DH
+	 * ┌──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┬──────┐
+	 * │   Q  │   W  │   F  │   P  │   B  │   J  │   L  │   U  │   Y  │   '  │
+	 * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+	 * │ADJA  │ ALTR │ CTLS │ SFTT │   G  │   M  │ SFTN │ CTLE │ AGRI │ GUIO │
+	 * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+	 * │   Z  │   X  │   C  │   D  │   V  │   K  │   H  │   ,  │   .  │   /  │
+	 * ├──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┼──────┤
+	 * │      │      │      │ESC/L │ SPC  │ENTER │BKSP/R│      │      │      │   
+	 * └──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┴──────┘
+	 */
+
+	[_COLEMAK-DH] = LAYOUT(
+		KC_Q,       KC_W,    KC_F,    KC_P, KC_B,    KC_J,    KC_L,    KC_U,    KC_Y, KC_QUOT,
+		KC_ADJA, KC_ALTR, KC_CTLS, KC_SFTT, KC_G,    KC_M, KC_SFTN, KC_CTLE, KC_AGRI, KC_GUIO,
+		KC_Z,       KC_X,    KC_C,    KC_D, KC_V,    KC_K,    KC_H, KC_COMM,  KC_DOT, KC_SLSH,
                             LT(1,KC_ESC), KC_SPC,    KC_ENT, LT(2,KC_BSPC)),
 
 	 /* LOWER
@@ -102,6 +135,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_ADJUST] = LAYOUT(
 		_______, KC_HOME,   KC_UP,  KC_END, KC_PGUP,      KC_WH_U, KC_BTN1, KC_MS_U, KC_BTN2,   RESET,
 		TG(3),   KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,      KC_WH_D, KC_MS_L, KC_MS_D, KC_MS_R, _______,
-		_______, _______, _______, _______, _______,      _______, _______, KC_BTN3, _______, _______,
+		_______, _______, _______, _______,   DF(0),        DF(1), _______, KC_BTN3, _______, _______,
 		                           _______, _______,      _______, _______)
 };
