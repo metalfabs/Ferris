@@ -38,8 +38,8 @@ enum combos {
 #define OSM_CTL OSM(MOD_LCTL)
 #define OSM_SFT OSM(MOD_LSFT)
 
-const uint16_t PROGMEM combtab[] = {LT(1,KC_ESC), KC_SPC, COMBO_END};
-const uint16_t PROGMEM combdel[] = {KC_ENT, LT(2,KC_BSPC), COMBO_END};
+const uint16_t PROGMEM combtab[] = {LT(2,KC_ESC), KC_SPC, COMBO_END};
+const uint16_t PROGMEM combdel[] = {KC_ENT, LT(3,KC_BSPC), COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
     [ESC_SPC_TAB]  = COMBO(combtab, KC_TAB),
