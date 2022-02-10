@@ -10,7 +10,7 @@ enum ferris_layers {
 
 enum combos {
   ESC_ENT_TAB,
-  ENT_SPC_DEL
+  SPC_BSPC_DEL
 };
 
 
